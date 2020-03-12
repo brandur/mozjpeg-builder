@@ -13,25 +13,34 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      # Checks out to the current directory.
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
           repository: mozilla/mozjpeg
 
-      - name: Install tooling from Apt
-        run: sudo apt-get install autoconf automake libtool nasm make pkg-config
-
-      - name: ls
+      - name: Run ls
         run: ls
 
-      - name: Run autoconf
-        run: autoreconf -fiv
+      - name: Install tooling from Apt
+        run: sudo apt-get install autoconf automake libtool nasm make pkg-config
 
       - name: Make build directory
         run: mkdir build && cd build
 
       - name: Run ./configure
-        run: sh ../configure
+        run: sh ./configure
+
+      - name: CMake
+        run: cmake -G"Unix Makefiles" ../
 
       - name: Make
         run: make
+
+      - name: Make Debian package
+        run: make deb
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: mozjpeg.deb
+          path: ./mozjpeg.deb
