@@ -34,13 +34,6 @@ jobs:
       - name: Make Debian package
         run: make deb
 
-      - uses: actions/upload-artifact@v1
-        with:
-          name: mozjpeg.deb
-
-          # TODO: Obviously this breaks on the next major version release.
-          path: ./mozjpeg_4.0.0_amd64.deb
-
       # Relies on the following secrets from GitHub's GUI configuration:
       #
       #     AWS_ACCESS_KEY_ID
