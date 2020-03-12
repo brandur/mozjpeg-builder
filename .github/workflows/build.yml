@@ -23,7 +23,7 @@ jobs:
         run: ls
 
       - name: Install tooling from Apt
-        run: sudo apt-get install cmake nasm make pkg-config
+        run: sudo apt-get install cmake nasm make
 
       - name: CMake
         run: cmake -G"Unix Makefiles" .
