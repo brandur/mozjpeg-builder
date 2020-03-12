@@ -42,7 +42,9 @@ jobs:
       # They use a specific AWS user whose access is only allowed to this one
       # S3 bucket.
       - name: Upload to S3
-        run: aws s3 cp mozjpeg_*_amd64.deb s3://mozjpeg-brandur/
+        run: |
+          aws s3 cp mozjpeg_*_amd64.deb s3://mozjpeg-brandur/
+          aws s3 cp mozjpeg_*_amd64.deb s3://mozjpeg-brandur/mozjpeg_master_amd64.deb
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWSAccessKeyID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWSSecretAccessKey }}
