@@ -50,3 +50,7 @@ jobs:
       # S3 bucket.
       - name: Upload to S3
         run: aws s3 cp mozjpeg_*_amd64.deb s3://mozjpeg-brandur/
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWSAccessKeyID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWSSecretAccessKey }}
+        if: github.ref == 'refs/heads/master'
