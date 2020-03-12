@@ -1,0 +1,26 @@
+name: build
+
+on:
+  pull_request:
+  push:
+  schedule:
+    # once a day at 8
+    - cron: "0 8 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          repository: mozilla/mozjpeg
+
+      - name: Install tooling from Apt
+        run: sudo apt-get install autoconf automake libtool nasm make pkg-config
+
+      - name: ls
+        run: ls
+
