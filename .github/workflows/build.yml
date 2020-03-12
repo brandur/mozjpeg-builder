@@ -24,3 +24,14 @@ jobs:
       - name: ls
         run: ls
 
+      - name: Run autoconf
+        run: autoreconf -fiv
+
+      - name: Make build directory
+        run: mkdir build && cd build
+
+      - name: Run ./configure
+        run: sh ../configure
+
+      - name: Make
+        run: make
