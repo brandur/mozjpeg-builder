@@ -37,4 +37,6 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: mozjpeg.deb
-          path: ./mozjpeg_*_amd64.deb
+
+          # TODO: Obviously this breaks on the next major version release.
+          path: ./mozjpeg_4.0.0_amd64.deb
