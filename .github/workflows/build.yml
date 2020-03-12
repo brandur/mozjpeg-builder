@@ -23,7 +23,7 @@ jobs:
         run: ls
 
       - name: Install tooling from Apt
-        run: sudo apt-get install cmake nasm make
+        run: sudo apt-get install awscli cmake nasm make
 
       - name: CMake
         run: cmake -G"Unix Makefiles" .
@@ -40,3 +40,13 @@ jobs:
 
           # TODO: Obviously this breaks on the next major version release.
           path: ./mozjpeg_4.0.0_amd64.deb
+
+      # Relies on the following secrets from GitHub's GUI configuration:
+      #
+      #     AWS_ACCESS_KEY_ID
+      #     AWS_SECRET_ACCESS_KEY
+      #
+      # They use a specific AWS user whose access is only allowed to this one
+      # S3 bucket.
+      - name: Upload to S3
+        run: aws s3 cp mozjpeg_*_amd64.deb s3://mozjpeg-brandur/
