@@ -50,26 +50,3 @@ jobs:
           files: mozjpeg_amd64.deb
           name: master
           tag_name: master
-
-      # Relies on the following secrets from GitHub's GUI configuration:
-      #
-      #     AWS_ACCESS_KEY_ID
-      #     AWS_SECRET_ACCESS_KEY
-      #
-      # They use a specific AWS user whose access is only allowed to this one
-      # S3 bucket.
-      - name: Upload to S3
-        run: |
-          aws s3 cp --acl public-read mozjpeg_*_amd64.deb s3://mozjpeg-brandur/
-          aws s3 cp --acl public-read mozjpeg_*_amd64.deb s3://mozjpeg-brandur/mozjpeg_master_amd64.deb
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWSAccessKeyID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWSSecretAccessKey }}
-
-          # Saw build failures, apparently because awscli is trying to determine
-          # region. This is an undocumented env var that disables that check.
-          #
-          # Discovered from: https://github.com/aws/aws-cli/issues/5262#issuecomment-705832151
-          AWS_EC2_METADATA_DISABLED: true
-
-        if: github.ref == 'refs/heads/master'
