@@ -34,6 +34,23 @@ jobs:
       - name: Make Debian package
         run: make deb
 
+      - name: Copy file
+        run: cp mozjpeg_*_amd64.deb mozjpeg_amd64.deb
+
+      - name: Upload GitHub build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: mozjpeg_amd64.deb
+          path: mozjpeg_amd64.deb
+
+      - name: Upload GitHub release artifact
+        uses: softprops/action-gh-release@v1
+        if: github.ref == 'refs/heads/master'
+        with:
+          files: mozjpeg_amd64.deb
+          name: master
+          tag_name: master
+
       # Relies on the following secrets from GitHub's GUI configuration:
       #
       #     AWS_ACCESS_KEY_ID
