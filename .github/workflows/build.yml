@@ -13,10 +13,8 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      # Checks out to the current directory.
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          fetch-depth: 1
           repository: mozilla/mozjpeg
 
       - name: Run ls
